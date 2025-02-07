@@ -1,4 +1,4 @@
-SRCS = mandatory/pipex.c mandatory/ft_split.c mandatory/errors.c
+SRCS = mandatory/pipex.c mandatory/ft_split.c mandatory/errors.c mandatory/utils.c
 
 # BONUS_SRCS = bonus/checker_bonus.c bonus/converter_bonus.c bonus/error_free_bonus.c bonus/op_bonus.c \
 #              bonus/isdigit_strncmp_bonus.c bonus/get_next_line_bonus.c bonus/get_next_line_utils_bonus.c \
@@ -11,9 +11,6 @@ RM = rm -f
 OBJS = ${SRCS:.c=.o}
 NAME = pipex
 HEADER = mandatory/pipex.h
-BONUS_OBJS = ${BONUS_SRCS:.c=.o}
-BONUS_NAME = checker
-BONUS_HEADER = bonus/checker_bonus.h
 
 all: ${NAME}
 
