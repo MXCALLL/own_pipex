@@ -1,4 +1,4 @@
-SRCS = mandatory/pipex.c mandatory/ft_split.c mandatory/errors.c mandatory/utils.c
+SRCS = mandatory/pipex.c mandatory/ft_split.c mandatory/errors.c mandatory/utils.c mandatory/utils_strjoin.c
 
 # BONUS_SRCS = bonus/checker_bonus.c bonus/converter_bonus.c bonus/error_free_bonus.c bonus/op_bonus.c \
 #              bonus/isdigit_strncmp_bonus.c bonus/get_next_line_bonus.c bonus/get_next_line_utils_bonus.c \
@@ -37,7 +37,7 @@ clean:
 	@${RM} ${OBJS} ${BONUS_OBJS}
 
 fclean: clean
-	@echo "Removing ${NAME} & ${BONUS_NAME}"
+	@echo "Removing ${NAME}"
 	@${RM} ${NAME} ${BONUS_NAME}
 
 re: fclean all

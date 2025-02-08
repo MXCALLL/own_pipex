@@ -6,15 +6,15 @@
 /*   By: muidbell <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 18:07:28 by muidbell          #+#    #+#             */
-/*   Updated: 2025/02/07 21:53:00 by muidbell         ###   ########.fr       */
+/*   Updated: 2025/02/08 13:41:24 by muidbell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-static int	create_process(void)
+static pid_t	create_process(void)
 {
-	int	id;
+	pid_t	id;
 
 	id = fork();
 	if (id == -1)
@@ -36,22 +36,23 @@ int	main(int ac, char *av[], char *env[])
 {
 	int		in;
 	int		out;
-	int		id1;
-	int		id2;
+	pid_t	pid1;
+	pid_t	pid2;
+	int		status;
 	int		fd[2];
 
 	arg_check(ac);
 	open_files(av[1], av[4], &in, &out);
 	create_pipe(fd);
-	id1 = create_process();
-	if (id1 == 0)
+	pid1 = create_process();
+	if (pid1 == 0)
 		exec_cmd1(fd, in, av[2], env);
-	id2 = create_process();
-	if (id2 == 0)
+	pid2 = create_process();
+	if (pid2 == 0)
 		exec_cmd2(fd, out, av[3], env);
 	close(fd[0]);
 	close(fd[1]);
-	wait(NULL);
-	wait(NULL);
+	waitpid(pid1, &status, 0);
+	waitpid(pid2, &status, 0);
 	return (0);
 }

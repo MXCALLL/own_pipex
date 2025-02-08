@@ -6,7 +6,7 @@
 /*   By: muidbell <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 19:03:08 by muidbell          #+#    #+#             */
-/*   Updated: 2025/02/07 19:48:19 by muidbell         ###   ########.fr       */
+/*   Updated: 2025/02/08 16:35:03 by muidbell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,17 @@ void	files_check(int in, int out)
 		perror("Error opening input file");
 		exit (1);
 	}
+}
+
+void	free_array(char **array)
+{
+	char **tmp;
+
+	tmp = array;
+	while(*tmp)
+	{
+		free(*tmp);
+		tmp++;
+	}
+	free(array);
 }
