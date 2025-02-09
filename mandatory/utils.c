@@ -6,7 +6,7 @@
 /*   By: muidbell <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 21:49:34 by muidbell          #+#    #+#             */
-/*   Updated: 2025/02/09 11:50:05 by muidbell         ###   ########.fr       */
+/*   Updated: 2025/02/09 22:48:09 by muidbell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,12 +95,13 @@ void	exec_cmd1(int *fd, int in, char *cmd, char *env[])
 
 	cmdf = ft_split(cmd, ' ');
 	if (!cmdf)
+		exit(EXIT_FAILURE);
+	close(fd[0]);
+	if (dup2(in, 0) < 0)
 	{
-		perror("Split failed");
+		free_array(cmdf);
 		exit(1);
 	}
-	close(fd[0]);
-	dup2(in, 0);
 	close(in);
 	dup2(fd[1], 1);
 	close(fd[1]);
@@ -109,7 +110,7 @@ void	exec_cmd1(int *fd, int in, char *cmd, char *env[])
 	{
 		free_array(cmdf);
 		perror("Command not found");
-		exit(1);
+		exit(127);
 	}
 	execve(path, cmdf, env);
 	free(path);
@@ -123,21 +124,22 @@ void	exec_cmd2(int *fd, int out, char *cmd, char *env[])
 
 	cmdf = ft_split(cmd, ' ');
 	if (!cmdf)
-	{
-		perror("Split failed");
-		exit(1);
-	}
+		exit(EXIT_FAILURE);
 	close(fd[1]);
 	dup2(fd[0], 0);
 	close(fd[0]);
-	dup2(out, 1);
+	if (dup2(out, 1) < 0)
+	{
+		free_array(cmdf);
+		exit(1);
+	}
 	close(out);
 	path = cmd_path(cmdf[0], env);
 	if (!path)
 	{
 		free_array(cmdf);
-		write(2, "Command not found\n", 18);
-		exit(1);
+		perror("Command not found");
+		exit(127);
 	}
 	execve(path, cmdf, env);
 	free(path);
