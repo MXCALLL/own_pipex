@@ -6,7 +6,7 @@
 /*   By: muidbell <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 19:03:08 by muidbell          #+#    #+#             */
-/*   Updated: 2025/02/09 11:48:32 by muidbell         ###   ########.fr       */
+/*   Updated: 2025/02/09 22:45:33 by muidbell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,10 @@ void	arg_check(int ac)
 void	files_check(int in, int out)
 {
 	if (in < 0)
-	{
-		perror("Error opening input file");
-		exit(1);
-	}
+		perror("pipex");
 	if (out < 0)
 	{
-		close(out);
-		perror("Error opening input file");
-		exit(1);
+		perror("pipex");
 	}
 }
 
