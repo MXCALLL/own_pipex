@@ -1,4 +1,3 @@
-
 ```mermaid
 flowchart TD
     A[Start] --> B[Check Arguments]
@@ -11,7 +10,7 @@ flowchart TD
     G -->|Yes - Parent| I[Fork Second Child]
     I --> J{Fork Success?}
     J -->|Yes - Child| K[Setup Second Command]
-    J -->|Yes - Parent| L[Wait & Cleanup]
+    J -->|Yes - Parent|L[Wait & Cleanup]
     H --> M[Execute CMD1]
     K --> N[Execute CMD2]
     L --> O[End]
