@@ -6,7 +6,7 @@
 /*   By: muidbell <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 18:07:28 by muidbell          #+#    #+#             */
-/*   Updated: 2025/02/08 13:41:24 by muidbell         ###   ########.fr       */
+/*   Updated: 2025/02/09 11:42:04 by muidbell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,15 @@ static pid_t	create_process(void)
 	return (id);
 }
 
+void	create_pipe(int *fd)
+{
+	if (pipe(fd) == -1)
+	{
+		write(2, "Error Pipe\n", 11);
+		exit(1);
+	}
+}
+
 static void	open_files(char *infile, char *outfile, int *in, int *out)
 {
 	*in = open(infile, O_RDONLY);
@@ -38,7 +47,6 @@ int	main(int ac, char *av[], char *env[])
 	int		out;
 	pid_t	pid1;
 	pid_t	pid2;
-	int		status;
 	int		fd[2];
 
 	arg_check(ac);
@@ -52,7 +60,7 @@ int	main(int ac, char *av[], char *env[])
 		exec_cmd2(fd, out, av[3], env);
 	close(fd[0]);
 	close(fd[1]);
-	waitpid(pid1, &status, 0);
-	waitpid(pid2, &status, 0);
+	waitpid(pid1, NULL, 0);
+	waitpid(pid2, NULL, 0);
 	return (0);
 }
