@@ -6,7 +6,7 @@
 /*   By: muidbell <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 18:07:28 by muidbell          #+#    #+#             */
-/*   Updated: 2025/02/09 22:37:26 by muidbell         ###   ########.fr       */
+/*   Updated: 2025/02/10 11:45:23 by muidbell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,27 +44,28 @@ static void	open_files(char *infile, char *outfile, int *in, int *out)
 int	main(int ac, char *av[], char *env[])
 {
 	int		files[2];
-	int		status;
-	pid_t	pid1;
-	pid_t	pid2;
+	int		status[2];
+	pid_t	pid[2];
 	int		fd[2];
 
 	arg_check(ac);
 	open_files(av[1], av[4], &files[0], &files[1]);
 	create_pipe(fd);
-	pid1 = create_process();
-	if (pid1 == 0)
+	pid[0] = create_process();
+	if (pid[0] == 0)
 		exec_cmd1(fd, files[0], av[2], env);
-	pid2 = create_process();
-	if (pid2 == 0)
+	pid[1] = create_process();
+	if (pid[1] == 0)
 		exec_cmd2(fd, files[1], av[3], env);
 	close(files[0]);
 	close(files[1]);
 	close(fd[0]);
 	close(fd[1]);
-	waitpid(pid1, &status, 0);
-	waitpid(pid2, &status, 0);
-	if (WIFEXITED(status))
-		return (WEXITSTATUS(status));
-	return (0);
+	waitpid(pid[0], &status[0], 0);
+	waitpid(pid[1], &status[1], 0);
+	if (WIFEXITED(status[1]))
+		return (WEXITSTATUS(status[1]));
+	else if (WIFEXITED(status[0]))
+		return (WEXITSTATUS(status[0]));
+	return (1);
 }
