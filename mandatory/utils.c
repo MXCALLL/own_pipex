@@ -6,7 +6,7 @@
 /*   By: muidbell <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 21:49:34 by muidbell          #+#    #+#             */
-/*   Updated: 2025/02/14 14:58:15 by muidbell         ###   ########.fr       */
+/*   Updated: 2025/02/14 16:58:40 by muidbell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,8 @@ static char	*cmd_path(char *cmd, char **env)
 	valid = valid_cmd(dirs, cmd);
 	if (valid)
 		return (valid);
-	write(2,"pipex: Command Not found\n",25);
-	return (free_array(dirs),NULL);
+	write(2, "pipex: Command Not found\n", 25);
+	return (free_array(dirs), NULL);
 }
 
 void	exec_cmd1(int *fd, int in, char *cmd, char *env[])
