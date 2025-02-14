@@ -6,7 +6,7 @@
 /*   By: muidbell <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 19:10:02 by muidbell          #+#    #+#             */
-/*   Updated: 2025/02/09 11:59:20 by muidbell         ###   ########.fr       */
+/*   Updated: 2025/02/14 15:23:24 by muidbell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdio.h>
 # include <sys/wait.h>
 # include <stdlib.h>
+# include <errno.h>
 
 void	arg_check(int ac);
 char	**ft_split(char const *s, char c);

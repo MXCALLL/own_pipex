@@ -6,7 +6,7 @@
 /*   By: muidbell <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 21:49:34 by muidbell          #+#    #+#             */
-/*   Updated: 2025/02/09 22:48:09 by muidbell         ###   ########.fr       */
+/*   Updated: 2025/02/14 14:58:15 by muidbell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,8 @@ static char	*cmd_path(char *cmd, char **env)
 	valid = valid_cmd(dirs, cmd);
 	if (valid)
 		return (valid);
-	free_array(dirs);
-	return (NULL);
+	write(2,"pipex: Command Not found\n",25);
+	return (free_array(dirs),NULL);
 }
 
 void	exec_cmd1(int *fd, int in, char *cmd, char *env[])
@@ -109,7 +109,6 @@ void	exec_cmd1(int *fd, int in, char *cmd, char *env[])
 	if (!path)
 	{
 		free_array(cmdf);
-		perror("Command not found");
 		exit(127);
 	}
 	execve(path, cmdf, env);
@@ -138,7 +137,6 @@ void	exec_cmd2(int *fd, int out, char *cmd, char *env[])
 	if (!path)
 	{
 		free_array(cmdf);
-		perror("Command not found");
 		exit(127);
 	}
 	execve(path, cmdf, env);
