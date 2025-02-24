@@ -6,7 +6,7 @@
 /*   By: muidbell <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 18:07:28 by muidbell          #+#    #+#             */
-/*   Updated: 2025/02/10 11:45:23 by muidbell         ###   ########.fr       */
+/*   Updated: 2025/02/19 15:01:25 by muidbell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void	open_files(char *infile, char *outfile, int *in, int *out)
 {
 	*in = open(infile, O_RDONLY);
 	*out = open(outfile, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	files_check(*in, *out);
+	files_check(*in, *out, infile, outfile);
 }
 
 int	main(int ac, char *av[], char *env[])

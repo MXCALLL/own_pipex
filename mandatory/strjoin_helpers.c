@@ -6,7 +6,7 @@
 /*   By: muidbell <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 16:21:18 by muidbell          #+#    #+#             */
-/*   Updated: 2025/02/09 11:23:16 by muidbell         ###   ########.fr       */
+/*   Updated: 2025/02/19 15:07:56 by muidbell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,24 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 		i++;
 	}
 	return (0);
+}
+
+void	ft_putchar_fd(char c, int fd)
+{
+	if (fd > 0)
+		write(fd, &c, 1);
+}
+
+void	ft_putstr_fd(char *s, int fd)
+{
+	size_t		i;
+
+	if (!s || fd < 0)
+		return ;
+	i = 0;
+	while (s[i] != '\0')
+	{
+		ft_putchar_fd(s[i], fd);
+		i++;
+	}
 }
