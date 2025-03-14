@@ -6,30 +6,34 @@
 /*   By: muidbell <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 18:07:28 by muidbell          #+#    #+#             */
-/*   Updated: 2025/02/19 15:01:25 by muidbell         ###   ########.fr       */
+/*   Updated: 2025/03/06 13:22:48 by muidbell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-static pid_t	create_process(void)
+static pid_t	create_process(int *in, int *out)
 {
 	pid_t	id;
 
 	id = fork();
 	if (id == -1)
 	{
-		write(1, "fork fails\n", 11);
+		write(2, "fork fails\n", 11);
+		close(*in);
+		close(*out);
 		exit(1);
 	}
 	return (id);
 }
 
-void	create_pipe(int *fd)
+void	create_pipe(int *fd, int *in, int *out)
 {
 	if (pipe(fd) == -1)
 	{
 		write(2, "Error Pipe\n", 11);
+		close(*in);
+		close(*out);
 		exit(1);
 	}
 }
@@ -50,11 +54,11 @@ int	main(int ac, char *av[], char *env[])
 
 	arg_check(ac);
 	open_files(av[1], av[4], &files[0], &files[1]);
-	create_pipe(fd);
-	pid[0] = create_process();
+	create_pipe(fd, &files[0], &files[1]);
+	pid[0] = create_process(&files[0], &files[1]);
 	if (pid[0] == 0)
 		exec_cmd1(fd, files[0], av[2], env);
-	pid[1] = create_process();
+	pid[1] = create_process(&files[0], &files[1]);
 	if (pid[1] == 0)
 		exec_cmd2(fd, files[1], av[3], env);
 	close(files[0]);
