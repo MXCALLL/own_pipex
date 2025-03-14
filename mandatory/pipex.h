@@ -6,7 +6,7 @@
 /*   By: muidbell <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 19:10:02 by muidbell          #+#    #+#             */
-/*   Updated: 2025/02/24 21:40:29 by muidbell         ###   ########.fr       */
+/*   Updated: 2025/03/06 13:39:21 by muidbell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,12 @@
 # include <stdio.h>
 # include <sys/wait.h>
 # include <stdlib.h>
-# include <errno.h>
 
 void	arg_check(int ac);
 char	**ft_split(char const *s, char c);
 void	exec_cmd1(int *fd, int in, char *cmd, char *env[]);
 void	exec_cmd2(int *fd, int out, char *cmd, char *env[]);
-void	create_pipe(int *fd);
+void	create_pipe(int *fd, int *in, int *out);
 void	files_check(int in, int out, char *infile, char *outfile);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*ft_strjoin(char const *s1, char const *s2);
